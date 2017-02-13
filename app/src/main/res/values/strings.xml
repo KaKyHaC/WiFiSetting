@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WiFiLiftSetting</string>
+    <string name="enable_p2p_button">P2P Вкл/Выкл</string>
+    <string name="discover_peers_button">Искать</string>
+    <string name="connect_peer_button">Подключиться</string>
+    <string name="disconnect_peer_button">Отключиться</string>
+    <string name="get_file_button">Настройки</string>
+    <string name="empty"></string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="client_text">Это устройство подключено как клиент.</string>
+    <string name="empty_message">Устройства не найдены.Включите P2P и повторите поиск</string>
+    <string name="p2p_off_warning">Включите P2P через навигационную понель или системные натройки.</string>
+    <string name="group_owner_text">"Я могу установить настройки?"</string>
+    <string name="label_me">Я</string>
+    <string name="label_peers">Пиры</string>
+    <string name="title_activity_setting">Настройки</string>
+    <string name="SettingFolder">LiftApp</string>
+    <string name="settingFile">setting.txt</string>
+    <string name="DeviceName">AppSetting</string>
+</resources>
