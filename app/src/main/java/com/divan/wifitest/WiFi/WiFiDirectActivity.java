@@ -189,7 +189,6 @@ public class WiFiDirectActivity extends Activity implements ChannelListener, Dev
         DeviceDetailFragment fragment = (DeviceDetailFragment) getFragmentManager()
                 .findFragmentById(R.id.frag_detail);
         fragment.showDetails(device);
-
     }
 
     @Override
