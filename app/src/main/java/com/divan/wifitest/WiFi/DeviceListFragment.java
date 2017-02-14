@@ -37,6 +37,7 @@ import com.divan.wifitest.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * A ListFragment that displays available peers on discovery and requests the
@@ -191,6 +192,13 @@ public class DeviceListFragment extends ListFragment implements PeerListListener
                         
                     }
                 });
+    }
+    public void addRandomPeer(){
+        WifiP2pDevice device=new WifiP2pDevice();
+        device.deviceName=Integer.toString(new Random().nextInt(20));
+        peers.add(device);
+        ((WiFiPeerListAdapter) getListAdapter()).notifyDataSetChanged();
+
     }
 
     /**

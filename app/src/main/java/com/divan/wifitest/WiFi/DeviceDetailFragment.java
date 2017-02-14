@@ -179,8 +179,8 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
 						: getResources().getString(R.string.no)));
 
 		// InetAddress from WifiP2pInfo struct.
-		view = (TextView) mContentView.findViewById(R.id.device_info);
-		view.setText("IP адрес владельца группы - " + info.groupOwnerAddress.getHostAddress());
+//		view = (TextView) mContentView.findViewById(R.id.device_info);
+//		view.setText("IP адрес владельца группы - " + info.groupOwnerAddress.getHostAddress());
 		//mContentView.findViewById(R.id.btn_start_client).setVisibility(View.VISIBLE);
 
 		if (!server_running){
@@ -203,10 +203,10 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
 	public void showDetails(WifiP2pDevice device) {
 		this.device = device;
 		this.getView().setVisibility(View.VISIBLE);
-		TextView view = (TextView) mContentView.findViewById(R.id.device_address);
-		view.setText(device.deviceAddress);
-		view = (TextView) mContentView.findViewById(R.id.device_info);
-		view.setText(device.toString());
+		TextView view = (TextView) mContentView.findViewById(R.id.deviceName);
+		view.setText(device.deviceName);
+//		view = (TextView) mContentView.findViewById(R.id.device_info);
+//		view.setText(device.toString());
 
 	}
 
@@ -215,13 +215,15 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
 	 */
 	public void resetViews() {
 		mContentView.findViewById(R.id.btn_connect).setVisibility(View.VISIBLE);
-		TextView view = (TextView) mContentView.findViewById(R.id.device_address);
-		view.setText(R.string.empty);
-		view = (TextView) mContentView.findViewById(R.id.device_info);
-		view.setText(R.string.empty);
-		view = (TextView) mContentView.findViewById(R.id.group_owner);
+//		TextView view = (TextView) mContentView.findViewById(R.id.device_address);
+//		view.setText(R.string.empty);
+//		view = (TextView) mContentView.findViewById(R.id.device_info);
+//		view.setText(R.string.empty);
+		TextView view = (TextView) mContentView.findViewById(R.id.group_owner);
 		view.setText(R.string.empty);
 		view = (TextView) mContentView.findViewById(R.id.status_text);
+		view.setText(R.string.empty);
+		view = (TextView) mContentView.findViewById(R.id.deviceName);
 		view.setText(R.string.empty);
 		mContentView.findViewById(R.id.btn_start_client).setVisibility(View.GONE);
 		this.getView().setVisibility(View.GONE);

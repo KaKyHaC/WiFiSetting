@@ -141,7 +141,9 @@ public class WiFiDirectActivity extends Activity implements ChannelListener, Dev
                     // Since this is the system wireless settings activity, it's
                     // not going to send us a result. We will be notified by
                     // WiFiDeviceBroadcastReceiver instead.
-
+//                    final DeviceListFragment fragment = (DeviceListFragment) getFragmentManager()
+//                            .findFragmentById(R.id.frag_list);
+//                    fragment.addRandomPeer();
                     startActivity(new Intent(Settings.ACTION_WIRELESS_SETTINGS));
                 } else {
                     Log.e(TAG, "channel or manager is null");
