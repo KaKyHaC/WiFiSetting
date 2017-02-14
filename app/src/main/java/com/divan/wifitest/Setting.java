@@ -258,6 +258,20 @@ public class Setting {
         pathSDcard=sdPath.getAbsolutePath();
         StoragePath=sdPath;
     }
-
+    public static String getStoragePath(){
+        File sdPath= Environment.getExternalStorageDirectory();
+        File parent=sdPath.getParentFile();
+        if(parent!=null) {
+            File[] files = parent.listFiles();
+            if(files!=null) {
+                for (File f : sdPath.getParentFile().listFiles()) {
+                    String n = f.getName();
+                    if (n.equals("extsd"))
+                        sdPath = f;
+                }
+            }
+        }
+        return sdPath.getAbsolutePath();
+    }
 
 }

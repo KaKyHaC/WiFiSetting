@@ -1,13 +1,18 @@
 package com.divan.wifitest.WiFi;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 
 import android.util.Log;
 
@@ -112,5 +117,51 @@ public class Utils {
 			ipAddrStr += ipAddr[i]&0xFF;
 		}
 		return ipAddrStr;
+	}
+	public static void addMac(String path, String Mac){
+		File sdFile = new File(path);
+		if(!isHaveMac(path,Mac)) {
+			try {
+
+				FileWriter fw = new FileWriter(sdFile);
+				BufferedWriter bw = new BufferedWriter(fw);
+				bw.append(Mac+"\n");
+				bw.close();
+			} catch (IOException e) {
+			}
+		}
+
+	}
+	public static boolean isHaveMac(String path,String Mac){
+		File sdFile = new File(path);
+		boolean isHave=false;
+		String curMac;
+
+		try {
+			FileReader fr = new FileReader(sdFile);
+			BufferedReader br = new BufferedReader(fr);
+			while ((curMac=br.readLine())!=null)
+			{
+				if(curMac.equals(Mac))
+					isHave=true;
+			}
+			br.close();
+		}catch (IOException e){}
+		return isHave;
+	}
+	public static List<String> getConnectedMacs(String path){
+		File sdFile = new File(path);
+		String curMac;
+		List<String> res=new ArrayList<>();
+		try {
+			FileReader fr = new FileReader(sdFile);
+			BufferedReader br = new BufferedReader(fr);
+			while ((curMac=br.readLine())!=null)
+			{
+				res.add(curMac);
+			}
+			br.close();
+		}catch (IOException e){}
+		return res;
 	}
 }

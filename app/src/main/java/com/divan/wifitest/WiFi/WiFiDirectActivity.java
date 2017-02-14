@@ -23,6 +23,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.wifi.p2p.WifiP2pConfig;
 import android.net.wifi.p2p.WifiP2pDevice;
+import android.net.wifi.p2p.WifiP2pGroup;
 import android.net.wifi.p2p.WifiP2pManager;
 import android.net.wifi.p2p.WifiP2pManager.ActionListener;
 import android.net.wifi.p2p.WifiP2pManager.Channel;
@@ -36,6 +37,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.divan.wifitest.Setting;
 import com.divan.wifitest.SettingActivity;
 import com.divan.wifitest.WiFi.DeviceListFragment.DeviceActionListener;
 import com.divan.wifitest.R;
@@ -59,6 +61,9 @@ public class WiFiDirectActivity extends Activity implements ChannelListener, Dev
     private final IntentFilter intentFilter = new IntentFilter();
     private Channel channel;
     private BroadcastReceiver receiver = null;
+
+    public static final String macsPath= Setting.getStoragePath()+"/LiftApp/macs.txt";
+
 
     /**
      * @param isWifiP2pEnabled the isWifiP2pEnabled to set

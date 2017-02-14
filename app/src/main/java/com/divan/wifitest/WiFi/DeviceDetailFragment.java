@@ -42,6 +42,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.divan.wifitest.Setting;
 import com.divan.wifitest.SettingActivity;
@@ -77,6 +78,11 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
 
 			@Override
 			public void onClick(View v) {
+				if(!Utils.isHaveMac(WiFiDirectActivity.macsPath,device.deviceAddress))
+				{
+					((TextView)mContentView.findViewById(R.id.status_text)).setText("not group owner");
+					return ;
+				}
 				WifiP2pConfig config = new WifiP2pConfig();
 				config.deviceAddress = device.deviceAddress;
 				config.wps.setup = WpsInfo.PBC;
@@ -171,7 +177,9 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
 		}
 		this.info = info;
 		this.getView().setVisibility(View.VISIBLE);
+		if(!info.isGroupOwner) {
 
+		}
 		// The owner IP is now known.
 		TextView view = (TextView) mContentView.findViewById(R.id.group_owner);
 		view.setText(" -"+getResources().getString(R.string.group_owner_text)
@@ -205,8 +213,8 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
 		this.getView().setVisibility(View.VISIBLE);
 		TextView view = (TextView) mContentView.findViewById(R.id.deviceName);
 		view.setText(device.deviceName);
-//		view = (TextView) mContentView.findViewById(R.id.device_info);
-//		view.setText(device.toString());
+		view = (TextView) mContentView.findViewById(R.id.status_text);
+		view.setText(((Utils.isHaveMac(WiFiDirectActivity.macsPath,device.deviceAddress))?"can":"can not")+" connect");
 
 	}
 

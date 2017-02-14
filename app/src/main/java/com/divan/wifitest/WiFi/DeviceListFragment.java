@@ -34,10 +34,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.divan.wifitest.R;
+import com.divan.wifitest.Setting;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import static com.divan.wifitest.WiFi.WiFiDirectActivity.macsPath;
 
 /**
  * A ListFragment that displays available peers on discovery and requests the
@@ -50,10 +53,13 @@ public class DeviceListFragment extends ListFragment implements PeerListListener
     View mContentView = null;
     private WifiP2pDevice device;
 
+    private List<String> connectedMac;
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         this.setListAdapter(new WiFiPeerListAdapter(getActivity(), R.layout.row_devices, peers));
+        connectedMac=Utils.getConnectedMacs(macsPath);
 
     }
 
@@ -120,6 +126,7 @@ public class DeviceListFragment extends ListFragment implements PeerListListener
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             View v = convertView;
+
             if (v == null) {
                 LayoutInflater vi = (LayoutInflater) getActivity().getSystemService(
                         Context.LAYOUT_INFLATER_SERVICE);
@@ -127,14 +134,20 @@ public class DeviceListFragment extends ListFragment implements PeerListListener
             }
             WifiP2pDevice device = items.get(position);
             if (device != null) {
+                if((device.status==WifiP2pDevice.CONNECTED))
+                    Utils.addMac(macsPath,device.deviceAddress);
+//                if(!Utils.isHaveMac(macsPath,device.deviceAddress))
+//                    return v;
+
                 TextView top = (TextView) v.findViewById(R.id.device_name);
                 TextView bottom = (TextView) v.findViewById(R.id.device_details);
                 if (top != null) {
-                    top.setText(device.deviceName);
+                    top.setText((position+1)+". "+device.deviceName);
                 }
                 if (bottom != null) {
                     bottom.setText(getDeviceStatus(device.status));
                 }
+//                bottom.append((device.isGroupOwner())?" owner":" not owner");
             }
 
             return v;
@@ -155,6 +168,11 @@ public class DeviceListFragment extends ListFragment implements PeerListListener
         view = (TextView) mContentView.findViewById(R.id.my_status);
         view.setText(getDeviceStatus(device.status));
 
+        if(device.status==WifiP2pDevice.CONNECTED){
+            WifiP2pDevice secondDevice=getConnectedDevice();
+            if(secondDevice!=null)
+                ((DeviceActionListener) getActivity()).showDetails(secondDevice);
+        }
     }
 
     @Override
@@ -199,6 +217,13 @@ public class DeviceListFragment extends ListFragment implements PeerListListener
         peers.add(device);
         ((WiFiPeerListAdapter) getListAdapter()).notifyDataSetChanged();
 
+    }
+    public WifiP2pDevice getConnectedDevice(){
+        for (WifiP2pDevice device:peers){
+            if(device.status==WifiP2pDevice.CONNECTED)
+                return device;
+        }
+        return null;
     }
 
     /**
